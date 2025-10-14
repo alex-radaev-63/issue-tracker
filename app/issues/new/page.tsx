@@ -45,6 +45,17 @@ const NewIssuePage = () => {
     []
   );
 
+  const onSubmit = handleSubmit(async (data) => {
+    try {
+      setIsSubmitting(true);
+      await axios.post("/api/issues", data);
+      router.push("/issues");
+    } catch (error) {
+      setIsSubmitting(false);
+      setError("Unexpected error occured.");
+    }
+  });
+
   return (
     <div className="flex flex-col max-w-xl gap-4">
       {error && (
@@ -52,19 +63,8 @@ const NewIssuePage = () => {
           <Callout.Text>{error}</Callout.Text>
         </Callout.Root>
       )}
-      <form
-        className="flex flex-col gap-4"
-        onSubmit={handleSubmit(async (data) => {
-          try {
-            setIsSubmitting(true);
-            await axios.post("/api/issues", data);
-            router.push("/issues");
-          } catch (error) {
-            setIsSubmitting(false);
-            setError("Unexpected error occured.");
-          }
-        })}
-      >
+
+      <form className="flex flex-col gap-4" onSubmit={onSubmit}>
         <TextField.Root
           placeholder="Title"
           {...register("title")}
