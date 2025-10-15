@@ -1,20 +1,20 @@
 "use client";
 
-import { Button, Callout, Text, TextField } from "@radix-ui/themes";
+import { Button, Callout, TextField } from "@radix-ui/themes";
 
-import { useForm, Controller } from "react-hook-form";
-import dynamic from "next/dynamic";
-import "easymde/dist/easymde.min.css";
-import { useMemo, useState } from "react";
-import axios from "axios";
-import { Options } from "easymde";
-import { useRouter } from "next/navigation";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { issueSchema } from "@/app/ValidationSchemas";
-import { z } from "zod";
 import ErrorMessage from "@/app/components/ErrorMessage";
 import Spinner from "@/app/components/Spinner";
+import { issueSchema } from "@/app/ValidationSchemas";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Issue } from "@prisma/client";
+import axios from "axios";
+import { Options } from "easymde";
+import "easymde/dist/easymde.min.css";
+import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
+import { useMemo, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import { z } from "zod";
 
 type IssueFormData = z.infer<typeof issueSchema>;
 
@@ -56,6 +56,7 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
       if (issue) await axios.patch("/api/issues/" + issue.id, data);
       else await axios.post("/api/issues", data);
       router.push("/issues");
+      router.refresh();
     } catch (error) {
       setIsSubmitting(false);
       setError("Unexpected error occured.");
