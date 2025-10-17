@@ -20,3 +20,7 @@ main {
   font-size: 14px !important;
   line-height: 1.5;
 }
+
+button:hover {
+  cursor: pointer;
+}
