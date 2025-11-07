@@ -7,6 +7,8 @@ import { Inter } from "next/font/google";
 
 import NavBar from "./NavBar";
 import AuthProvider from "./auth/Provider";
+import { Query } from "@tanstack/react-query";
+import QueryClientProvider from "./QueryClientProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -26,16 +28,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={inter.variable}>
-      <AuthProvider>
-        <body>
-          <Theme accentColor="violet">
-            <NavBar />
-            <main>
-              <Container>{children}</Container>
-            </main>
-          </Theme>
-        </body>
-      </AuthProvider>
+      <body>
+        <QueryClientProvider>
+          <AuthProvider>
+            <Theme accentColor="violet">
+              <NavBar />
+              <main>
+                <Container>{children}</Container>
+              </main>
+            </Theme>
+          </AuthProvider>
+        </QueryClientProvider>
+      </body>
     </html>
   );
 }
