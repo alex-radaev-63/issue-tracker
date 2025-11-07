@@ -8,6 +8,7 @@ import classNames from "classnames";
 import { useSession } from "next-auth/react";
 import { Box } from "@radix-ui/themes/components/box";
 import { Container } from "@radix-ui/themes/components/container";
+import { Avatar, DropdownMenu, Text } from "@radix-ui/themes";
 
 const NavBar = () => {
   const currentPath = usePathname();
@@ -45,7 +46,32 @@ const NavBar = () => {
           </div>
           <div>
             {status === "authenticated" && (
-              <Link href="/api/auth/signout">Log out</Link>
+              <DropdownMenu.Root>
+                <DropdownMenu.Trigger>
+                  <div className="flex gap-2 items-center cursor-pointer">
+                    <Text>{session.user!.name}</Text>
+                    <Avatar
+                      src={session.user!.image!}
+                      fallback="?"
+                      size="2"
+                      radius="full"
+                    />
+                  </div>
+                </DropdownMenu.Trigger>
+                <DropdownMenu.Content className="pt-2">
+                  <DropdownMenu.Label>
+                    <div className="flex flex-col">
+                      <Text size="1">Email</Text>
+                      <Text size="2" className="text-black">
+                        {session.user!.email}
+                      </Text>
+                    </div>
+                  </DropdownMenu.Label>
+                  <DropdownMenu.Item className="mt-2 cursor-pointer">
+                    <Link href="/api/auth/signout">Log out</Link>
+                  </DropdownMenu.Item>
+                </DropdownMenu.Content>
+              </DropdownMenu.Root>
             )}
             {status === "unauthenticated" && (
               <Link href="/api/auth/signin">Login</Link>
