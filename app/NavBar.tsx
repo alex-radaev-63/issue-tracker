@@ -55,16 +55,15 @@ const NavBar = () => {
                       fallback="?"
                       size="2"
                       radius="full"
+                      referrerPolicy="no-referrer"
                     />
                   </div>
                 </DropdownMenu.Trigger>
                 <DropdownMenu.Content className="pt-2">
                   <DropdownMenu.Label>
-                    <div className="flex flex-col">
+                    <div className="flex flex-col gap-0.5">
                       <Text size="1">Email</Text>
-                      <Text size="2" className="text-black">
-                        {session.user!.email}
-                      </Text>
+                      <Text size="2">{session.user!.email}</Text>
                     </div>
                   </DropdownMenu.Label>
                   <DropdownMenu.Item className="mt-2 cursor-pointer">
