@@ -5,15 +5,20 @@ import IssueActions from "./IssueActions";
 import { Status } from "@prisma/client";
 
 interface Props {
-  searchParams: Promise<{ status?: Status | undefined }>;
+  searchParams: Promise<{ status: Status }>;
 }
 
 const IssuesPage = async ({ searchParams }: Props) => {
   const resolvedSearchParams = await searchParams;
-  console.log(resolvedSearchParams.status);
+
+  const statuses = Object.values(Status);
+  const status = statuses.includes(resolvedSearchParams.status)
+    ? resolvedSearchParams.status
+    : undefined;
+
   const issues = await prisma.issue.findMany({
     where: {
-      status: resolvedSearchParams.status,
+      status,
     },
   });
 

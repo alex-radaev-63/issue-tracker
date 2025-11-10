@@ -15,9 +15,19 @@ const IssueStatusFilter = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
+  const rawParam = searchParams.get("status") ?? undefined; // convert null → undefined
+
+  const validStatuses = statuses
+    .map((s) => s.value)
+    .filter((v): v is Status => !!v);
+
+  const currentValue = validStatuses.includes(rawParam as Status)
+    ? (rawParam as Status)
+    : "ALL";
+
   return (
     <Select.Root
-      defaultValue={searchParams.get("status") || ""}
+      value={currentValue}
       onValueChange={(status) => {
         const query = status === "ALL" ? "" : `?status=${status}`;
         router.push(`/issues/list${query}`);
