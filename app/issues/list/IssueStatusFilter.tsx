@@ -27,6 +27,7 @@ const IssueStatusFilter = () => {
 
   return (
     <Select.Root
+      defaultValue=""
       value={currentValue}
       onValueChange={(status) => {
         const query = status === "ALL" ? "" : `?status=${status}`;
