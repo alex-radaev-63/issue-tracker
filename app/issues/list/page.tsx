@@ -55,6 +55,7 @@ const IssuesPage = async ({ searchParams }: Props) => {
             {columns.map((column) => {
               const isActive = column.value === orderBy;
               let nextOrder: "desc" | "asc" | undefined;
+
               if (!isActive) nextOrder = "desc";
               else if (order === "desc") nextOrder = "asc";
               else if (order === "asc") nextOrder = undefined;
