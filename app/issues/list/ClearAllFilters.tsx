@@ -14,18 +14,15 @@ const ClearAllFilters = () => {
 
   const clearFilters = () => {
     const params = new URLSearchParams();
-    const page = searchParams.get("page");
-    if (page) params.set("page", page);
+    router.push(`${pathname}?${params.toString()}`);
   };
 
+  if (!hasFilters) return null;
+
   return (
-    <>
-      {hasFilters && (
-        <Button variant="soft" color="crimson" onClick={clearFilters}>
-          Clear all filters
-        </Button>
-      )}
-    </>
+    <Button variant="soft" color="crimson" onClick={clearFilters}>
+      Clear all filters
+    </Button>
   );
 };
 
