@@ -3,7 +3,6 @@ import { patcherIssueSchema } from "@/app/ValidationSchemas";
 import { prisma } from "@/prisma/client";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
-import { use } from "react";
 
 interface Props {
   params: Promise<{ id: string }>;
