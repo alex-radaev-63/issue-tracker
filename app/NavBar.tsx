@@ -69,7 +69,9 @@ const AuthStatus = () => {
       <DropdownMenu.Root>
         <DropdownMenu.Trigger>
           <div className="flex gap-2 items-center cursor-pointer">
-            <Text className="nav-link">{session!.user!.name}</Text>
+            <Text className="hidden sm:inline nav-link">
+              {session!.user!.name}
+            </Text>
             <Avatar
               src={session!.user!.image!}
               fallback="?"

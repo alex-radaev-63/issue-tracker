@@ -6,14 +6,16 @@ import ClearAllFilters from "./ClearAllFilters";
 
 const IssueActions = () => {
   return (
-    <Flex mb="5" justify="between" align="center">
-      <Flex gap="3">
+    <Flex mb="5" gap="3" justify="between" align="center">
+      <Flex gap="3" align="center">
         <IssueStatusFilter />
         <ClearAllFilters />
       </Flex>
-      <Button>
-        <Link href="/issues/new">+ New Issue</Link>
-      </Button>
+      <div className="hidden sm:inline">
+        <Button>
+          <Link href="/issues/new">+ New Issue</Link>
+        </Button>
+      </div>
     </Flex>
   );
 };

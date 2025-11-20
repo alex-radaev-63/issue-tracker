@@ -4,6 +4,8 @@ import IssueActions from "./IssueActions";
 import Pagination from "@/app/components/Pagination";
 import IssuesTable from "./IssuesTable";
 import { Metadata } from "next";
+import { Button, Flex } from "@radix-ui/themes";
+import Link from "next/link";
 
 interface Props {
   searchParams: Promise<{
@@ -49,7 +51,15 @@ const IssuesPage = async ({ searchParams }: Props) => {
   ]);
 
   return (
-    <div>
+    <>
+      <Flex justify="between">
+        <h1>List of issues</h1>
+        <div className="inline sm:hidden">
+          <Button>
+            <Link href="/issues/new">+ New Issue</Link>
+          </Button>
+        </div>
+      </Flex>
       <IssueActions />
       <IssuesTable issues={issues} searchParams={resolvedSearchParams} />
       <Pagination
@@ -57,7 +67,7 @@ const IssuesPage = async ({ searchParams }: Props) => {
         currentPage={page}
         itemCount={issueCount}
       />
-    </div>
+    </>
   );
 };
 

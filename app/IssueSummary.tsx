@@ -17,24 +17,25 @@ const IssueSummary = ({ open, inProgress, closed }: Props) => {
   }[] = [
     { label: "Open Issues", value: open, status: "OPEN" },
     { label: "In-progress Issues", value: inProgress, status: "IN_PROGRESS" },
-    { label: "Cosed Issues", value: closed, status: "CLOSED" },
+    { label: "Closed Issues", value: closed, status: "CLOSED" },
   ];
 
   return (
-    <Flex gap="4">
+    <Flex className="gap-2 md:gap-4">
       {containers.map((container) => (
-        <Card key={container.label}>
-          <Flex direction="column" gap="2">
+        <Card key={container.label} className="flex-1">
+          <Flex direction="column" gap="2" justify="between" height="100%">
             <Link
               href={`/issues/list/?status=${container.status}`}
               className="text-sm font-medium text-slate-600"
             >
               {container.label}
             </Link>
+
+            <Text size="5" className="font-bold">
+              {container.value}
+            </Text>
           </Flex>
-          <Text size="5" className="font-bold">
-            {container.value}
-          </Text>
         </Card>
       ))}
     </Flex>

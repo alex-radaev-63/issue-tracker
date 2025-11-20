@@ -4,6 +4,7 @@ import LatestIssue from "./LatestIssue";
 import { Box, Flex, Grid } from "@radix-ui/themes";
 import IssueChart from "./IssueChart";
 import { Metadata } from "next";
+import { getServerSession } from "next-auth";
 
 export default async function Home() {
   const openCount = await prisma.issue.count({ where: { status: "OPEN" } });
@@ -18,16 +19,24 @@ export default async function Home() {
     closed: closedCount,
   };
 
+  const session = await getServerSession();
+
   return (
-    <Grid columns={{ initial: "1", md: "2" }} gap="5">
-      <Flex direction="column" gap="5" style={{ height: "100%" }}>
-        <IssueSummary {...issueCounts} />
-        <Box style={{ flexGrow: 1, minHeight: 0 }}>
-          <IssueChart {...issueCounts} />
-        </Box>
-      </Flex>
-      <LatestIssue />
-    </Grid>
+    <>
+      <h1>
+        Welcome {session ? session.user?.name + "!" : "to the issue tracker!"}
+      </h1>
+
+      <Grid columns={{ initial: "1", sm: "2" }} gap="5">
+        <Flex direction="column" gap="5" style={{ height: "100%" }}>
+          <IssueSummary {...issueCounts} />
+          <Box style={{ flexGrow: 1, minHeight: 300 }}>
+            <IssueChart {...issueCounts} />
+          </Box>
+        </Flex>
+        <LatestIssue />
+      </Grid>
+    </>
   );
 }
 
