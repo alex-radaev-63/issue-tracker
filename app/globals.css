@@ -31,3 +31,7 @@ main {
 button:hover {
   cursor: pointer;
 }
+
+table tr:last-child td {
+  box-shadow: none !important;
+}
